@@ -17,6 +17,19 @@ public class HomeController : Controller
         return View(tasks);
     }
 
+namespace Mission8.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     [HttpGet]
     public IActionResult AddEditTask()
     {

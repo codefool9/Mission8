@@ -1,10 +1,18 @@
-using Mission8.Models2;
+using Microsoft.EntityFrameworkCore;
+using Mission8.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Reads the appsettings.json and registers the TaskDatabaseContext as a service
+// with the connection info packaged into DbContextOptions
+builder.Services.AddDbContext<TaskDatabaseContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("TaskItemConnection")));
+
+// give each HTTP request an instance of EFTaskRepository
+// EFTaskRepository = basically the logic that runs the different methods we need for the project
 builder.Services.AddScoped<ITaskRepository, EFTaskRepository>();
 
 var app = builder.Build();
