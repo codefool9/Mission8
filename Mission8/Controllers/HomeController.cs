@@ -17,19 +17,6 @@ public class HomeController : Controller
         return View(tasks);
     }
 
-namespace Mission8.Controllers
-{
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
     [HttpGet]
     public IActionResult AddEditTask()
     {
@@ -70,6 +57,15 @@ namespace Mission8.Controllers
         // If data is invalid, send back to form with categories re-loaded
         ViewBag.Categories = _repo.Categories.ToList();
         return View(response);
+    }
+
+    [HttpPost]
+    public IActionResult CompleteTask(int id)
+    {
+        var task = _repo.Tasks.Single(x => x.TaskId == id);
+        task.Completed = true;
+        _repo.UpdateTask(task);
+        return RedirectToAction("Quadrants");
     }
 
     [HttpPost]
