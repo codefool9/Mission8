@@ -12,6 +12,7 @@ public class EFTaskRepository : ITaskRepository
     }
 
     // this creates a List of all the rows in the TaskItems table and the Categories table, allowing us to accesss it outside of this file
+    // this is the same as making it possible to view
     public List<TaskItem> TaskItems => _context.TaskItems.ToList();
     public List<Category> Categories => _context.Categories.ToList();
     
@@ -24,7 +25,7 @@ public class EFTaskRepository : ITaskRepository
     }
 
     // update a task
-    public void UpdateTask(TaskItem task)
+    public void EditTask(TaskItem task)
     {
         _context.TaskItems.Update(task);
         _context.SaveChanges();
