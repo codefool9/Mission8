@@ -9,5 +9,10 @@ namespace Mission8.Controllers
         {
             return View();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
