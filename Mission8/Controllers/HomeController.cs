@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Mission8.Models2;
+using Mission8.Models;
+using System.Linq;
 
 public class HomeController : Controller
 {
@@ -12,8 +13,8 @@ public class HomeController : Controller
 
     public IActionResult Quadrants()
     {
-        // This will now pull the "Fake" tasks from your stub
-        var tasks = _repo.Tasks.Where(x => x.Completed == false).ToList();
+        // This will now pull the tasks from the repository
+        var tasks = _repo.TaskItems.Where(x => x.Completed == false).ToList();
         return View(tasks);
     }
 
@@ -30,7 +31,7 @@ public class HomeController : Controller
     public IActionResult Edit(int id)
     {
         // Find the specific task to edit
-        var task = _repo.Tasks.Single(x => x.TaskId == id);
+        var task = _repo.TaskItems.Single(x => x.TaskId == id);
 
         // Still need categories for the dropdown on the edit page
         ViewBag.Categories = _repo.Categories.ToList();
@@ -62,7 +63,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult CompleteTask(int id)
     {
-        var task = _repo.Tasks.Single(x => x.TaskId == id);
+        var task = _repo.TaskItems.Single(x => x.TaskId == id);
         task.Completed = true;
         _repo.UpdateTask(task);
         return RedirectToAction("Quadrants");
@@ -71,8 +72,8 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Delete(int id)
     {
-        var task = _repo.Tasks.Single(x => x.TaskId == id);
-        _repo.DeleteTask(task);
+        // Directly call repository delete by id
+        _repo.DeleteTask(id);
 
         return RedirectToAction("Quadrants");
     }
