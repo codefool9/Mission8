@@ -39,6 +39,14 @@ public class HomeController : Controller
         return View("AddEditTask", task);
     }
 
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        // Find the specific task to show on the confirmation page
+        var task = _repo.TaskItems.Single(x => x.TaskId == id);
+        return View("Delete", task);
+    }
+
     [HttpPost]
     public IActionResult AddEditTask(TaskItem response)
     {
