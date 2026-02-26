@@ -50,7 +50,7 @@ public class HomeController : Controller
             }
             else
             {
-                _repo.UpdateTask(response); // Existing task
+                _repo.EditTask(response); // Existing task
             }
             return RedirectToAction("Quadrants");
         }
@@ -65,7 +65,7 @@ public class HomeController : Controller
     {
         var task = _repo.TaskItems.Single(x => x.TaskId == id);
         task.Completed = true;
-        _repo.UpdateTask(task);
+        _repo.EditTask(task);
         return RedirectToAction("Quadrants");
     }
 
