@@ -21,7 +21,7 @@ public partial class TaskItem
     public int? CategoryId { get; set; }
 
     [Required]
-    public bool? Completed { get; set; }
+    public bool Completed { get; set; }
 
     [ForeignKey(nameof(CategoryId))]
     public virtual Category? Category { get; set; }
